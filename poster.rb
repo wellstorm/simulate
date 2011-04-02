@@ -79,6 +79,9 @@ class MyListener
     when "data"
       @state = :data
       @data = ''
+    when "nullValue"
+      @state = :null_value
+      @null_value = ''
     else
       @state = :none
     end
@@ -87,25 +90,46 @@ class MyListener
   def tag_end name
     case name
     when "data"
+      @null_value = @null_value.strip # how come this didnt work above?
       @data = @data.strip
       vals = @data.split(',').map {|x| x.strip}
       this_time = Time.iso8601(vals[@index_curve_column_index- 1])
       delay = this_time.to_f - (@last_time || this_time).to_f
       now = Time.new.to_f
       loop_time = now - (@last_now || now).to_f
-      #sleep [0, [60,  delay - (now - (@then || 0))].min].max
+
       sleep [0, [60,  delay - loop_time].min].max
       @last_now = Time.new
       @last_time = this_time
       
-      puts (Time.new.iso8601)
+      fake_time = Time.new.iso8601;
+      #puts (Time.new.iso8601)
       
+      keys = @columns.keys.sort
+      good_keys = keys.find_all {|i| vals[i] != '' && vals[i] != @null_value }
+
+      puts "removed null #{@null_value} -- #{(keys.length - good_keys.length)}"
+      channels = good_keys.map {|i| "    <channel><mnemonic>#{@columns[i]}</mnemonic><value>#{vals[i]}</value>"}
+
+      rt = <<EOF
+<realtimes>
+  <realtime >
+    <dTim>#{fake_time}</dTim>
+     #{channels.join("\r\n")}
+  </realtime>
+</realtimes>
+EOF
+
+     # print rt
+
     when "logCurveInfo" 
       @mnemonic = @mnemonic.strip
       @column_index = @column_index.strip
       @columns[@column_index.to_i-1] = @mnemonic;
     when "indexCurve"
-      @indexCurve = @index_curve.strip
+      @index_curve = @index_curve.strip
+    when "nullValue"
+      @null_value = @null_value.strip
     end
   end
 
@@ -119,6 +143,8 @@ class MyListener
       @column_index += text
     when :data
       @data += text
+    when :null_value
+      @null_value += text
     end
   end
 end
