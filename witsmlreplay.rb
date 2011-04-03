@@ -107,8 +107,9 @@ class MyListener
     when "indexCurve" 
       @state = :index_curve
       @index_curve = ''
-      @index_curve_column_index = attrs.assoc("columnIndex")[1].to_i
-    when "mnemonic"
+      @index_curve_column_index = attrs["columnIndex"].to_i
+      #puts "attrs = #{attrs['columnIndex']}"
+   when "mnemonic"
       @state = :mnemonic
       @mnemonic = ''
     when "columnIndex"
