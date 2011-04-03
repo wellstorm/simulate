@@ -5,7 +5,7 @@ require 'uri'
 require 'rexml/document'
 require 'rexml/streamlistener'
 require 'time'
-
+require 'stringio'
 
 $options = {}
 
