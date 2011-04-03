@@ -7,7 +7,7 @@ require 'rexml/streamlistener'
 require 'time'
 
 
-options = {}
+$options = {}
 
 opts =OptionParser.new do |o|
   o.banner = "Usage: poster.rb [options]"
@@ -15,16 +15,16 @@ opts =OptionParser.new do |o|
 #    options[:verbose] = v
 #  end
   o.on("-r", "--url url", "URL of the log") do |v|
-    options[:url] = v
+    $options[:url] = v
   end
   o.on("-u", "--username USER", "HTTP user name (optional)") do |v|
-    options[:user_name] = v
+    $options[:user_name] = v
   end
   o.on("-p", "--password PASS", "HTTP password (optional)") do |v|
-    options[:password] = v
+    $options[:password] = v
   end
   o.on("-l", "--log LOGFILE", "Path to the log data source") do |v|
-    options[:log] = v
+    $options[:log] = v
   end
   o.on_tail("-h", "--help", "Show this message") do
     puts o
@@ -33,22 +33,26 @@ opts =OptionParser.new do |o|
 end
 
 
-def upload(io, url, user, pass )    
- 
+def post(io, url, user, pass)    
+  url = URI.parse(url)  if url.is_a? String
+  io = StringIO.new(io) if io.is_a? String
+
   req = Net::HTTP::Post.new(url.path)
-  req.basic_auth user, pass
+  req.basic_auth user, pass if user && user.length > 0
   req.body_stream = io
-  req.content_type = 'application/x.witsml+xml'
-  req.content_length = io.stat.size
+  req.content_type = 'application/soap+xml'
+  #req.content_length = io.stat.size
+  req.content_length = io.size   # specific to StringIO class ? why no stat on that class?
   http = Net::HTTP.new(url.host, url.port)  
   http.use_ssl = true
-  http.read_timeout = 1800 # secs
-
+  http.read_timeout = 60 # secs
+  http.verify_mode = OpenSSL::SSL::VERIFY_NONE
   res = http.start {|http2| http2.request(req) }
 
   case res
   when Net::HTTPSuccess, Net::HTTPRedirection
     # OK
+    res
   else
     res.error!
   end
@@ -106,14 +110,20 @@ class MyListener
       #puts (Time.new.iso8601)
       
       keys = @columns.keys.sort
-      good_keys = keys.find_all {|i| vals[i] != '' && vals[i] != @null_value }
+      good_keys = keys.find_all {|i| vals[i] != '' && vals[i] != @null_value && i != (@index_curve_column_index - 1) }
 
-      puts "removed null #{@null_value} -- #{(keys.length - good_keys.length)}"
-      channels = good_keys.map {|i| "    <channel><mnemonic>#{@columns[i]}</mnemonic><value>#{vals[i]}</value>"}
+      #puts "removed null #{@null_value} -- #{(keys.length - good_keys.length)}"
+      channels = good_keys.map {|i| "    <channel><mnemonic>#{@columns[i]}</mnemonic><value>#{vals[i]}</value></channel>"}
+
+
+      re = /.*\/well\/([^\/]+)\/wellbore\/([^\/]+)\/.*/
+      url = $options[:url]
+      uidWell = re.match(url)[1]
+      uidWellbore = re.match(url)[2]
 
       rt = <<EOF
-<realtimes>
-  <realtime >
+<realtimes xmlns="http://www.witsml.org/schemas/131">
+  <realtime uidWell="#{uidWell}" uidWellbore="#{uidWellbore}" >
     <dTim>#{fake_time}</dTim>
      #{channels.join("\r\n")}
   </realtime>
@@ -121,6 +131,7 @@ class MyListener
 EOF
 
      # print rt
+      post(  rt, $options[:url], $options[:user_name], $options[:password])
 
     when "logCurveInfo" 
       @mnemonic = @mnemonic.strip
@@ -150,14 +161,14 @@ EOF
 end
 
 opts.parse!
-if ( !options[:url]  ||!options[:log])
+if ( !$options[:url]  ||!$options[:log])
   puts(opts.help)
   exit 1
 end
 
 
 listener = MyListener.new 
-source = File.new options[:log] 
+source = File.new $options[:log] 
 REXML::Document.parse_stream(source, listener)
 
 print "index curve #{listener.index_curve} #{listener.index_curve_column_index}"
