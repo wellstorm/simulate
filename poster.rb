@@ -66,6 +66,40 @@ class MyListener
   def initialize
     @state = :none
     @columns = {}
+
+    re = /.*\/well\/([^\/]+)\/wellbore\/([^\/]+)\/log\/([^\/]+)/
+    @url = $options[:url]
+    @uid_well = re.match(@url)[1]
+    @uid_wellbore = re.match(@url)[2]
+    @uid_log = re.match(@url)[3]
+
+    restore_state @uid_well, @uid_wellbore, @uid_log
+
+  end
+
+  def save_state (uid_well, uid_wellbore, uid_log, this_time)
+    begin 
+      Dir.mkdir ".witsml-replay"
+    rescue 
+    end
+
+    f = File.new ".witsml-replay/#{uid_well}.#{uid_wellbore}.#{uid_log}", "w"
+    begin
+      f.puts this_time.iso8601
+    rescue
+    end
+    f.close if f
+  end
+
+  def restore_state (uid_well, uid_wellbore, uid_log)
+     begin
+       f = File.new ".witsml-replay/#{uid_well}.#{uid_wellbore}.#{uid_log}", "r"
+       @last_time = Time.iso8601 f.gets
+
+       print "restored state #{@last_time}"
+    rescue
+    end
+    f.close if f
   end
 
   def tag_start name, attrs
@@ -94,45 +128,52 @@ class MyListener
   def tag_end name
     case name
     when "data"
+
+
       @null_value = @null_value.strip # how come this didnt work above?
       @data = @data.strip
       vals = @data.split(',').map {|x| x.strip}
       this_time = Time.iso8601(vals[@index_curve_column_index- 1])
-      delay = this_time.to_f - (@last_time || this_time).to_f
-      now = Time.new.to_f
-      loop_time = now - (@last_now || now).to_f
-
-      sleep [0, [60,  delay - loop_time].min].max
-      @last_now = Time.new
-      @last_time = this_time
       
-      fake_time = Time.new.iso8601;
-      #puts (Time.new.iso8601)
+      # skip this line if we have restored state and have not yet reached the time we last did
+      if (!@last_time || (@last_time && this_time.to_f > @last_time.to_f))
+
+        delay = this_time.to_f - (@last_time || this_time).to_f
+        now = Time.new.to_f
+        loop_time = now - (@last_now || now).to_f
+        
+        sleep [0, [60,  delay - loop_time].min].max
+        @last_now = Time.new
+        @last_time = this_time
       
-      keys = @columns.keys.sort
-      good_keys = keys.find_all {|i| vals[i] != '' && vals[i] != @null_value && i != (@index_curve_column_index - 1) }
+        fake_time = Time.new.iso8601;
+        puts (fake_time)
+      
+        keys = @columns.keys.sort
+        good_keys = keys.find_all {|i| vals[i] != '' && vals[i] != @null_value && i != (@index_curve_column_index - 1) }
+        
+        #puts "removed null #{@null_value} -- #{(keys.length - good_keys.length)}"
+        channels = good_keys.map {|i| "    <channel><mnemonic>#{@columns[i]}</mnemonic><value>#{vals[i]}</value></channel>"}
 
-      #puts "removed null #{@null_value} -- #{(keys.length - good_keys.length)}"
-      channels = good_keys.map {|i| "    <channel><mnemonic>#{@columns[i]}</mnemonic><value>#{vals[i]}</value></channel>"}
 
-
-      re = /.*\/well\/([^\/]+)\/wellbore\/([^\/]+)\/.*/
-      url = $options[:url]
-      uidWell = re.match(url)[1]
-      uidWellbore = re.match(url)[2]
-
-      rt = <<EOF
+  
+        rt = <<EOF
 <realtimes xmlns="http://www.witsml.org/schemas/131">
-  <realtime uidWell="#{uidWell}" uidWellbore="#{uidWellbore}" >
+  <realtime uidWell="#{@uid_well}" uidWellbore="#{@uid_wellbore}" >
     <dTim>#{fake_time}</dTim>
      #{channels.join("\r\n")}
   </realtime>
 </realtimes>
 EOF
 
-     # print rt
-      post(  rt, $options[:url], $options[:user_name], $options[:password])
+        # print rt
+        post rt, @url, $options[:user_name], $options[:password]
 
+      
+        save_state @uid_well, @uid_wellbore, @uid_log, this_time
+      else
+        p "skipped #{this_time} < #{@last_time}"
+      end
     when "logCurveInfo" 
       @mnemonic = @mnemonic.strip
       @column_index = @column_index.strip
