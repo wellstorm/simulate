@@ -148,7 +148,7 @@ class MyListener
         @last_time = this_time
       
         fake_time = Time.new.iso8601;
-        puts (fake_time)
+        puts "#{this_time.iso8601} => #{fake_time}"
       
         keys = @columns.keys.sort
         good_keys = keys.find_all {|i| vals[i] != '' && vals[i] != @null_value && i != (@index_curve_column_index - 1) }
@@ -173,7 +173,7 @@ EOF
       
         save_state @uid_well, @uid_wellbore, @uid_log, this_time
       else
-        p "skipped #{this_time} < #{@last_time}"
+        puts "skipped #{this_time} < #{@last_time}"
       end
     when "logCurveInfo" 
       @mnemonic = @mnemonic.strip
