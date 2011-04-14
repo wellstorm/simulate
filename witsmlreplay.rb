@@ -131,7 +131,7 @@ class MyListener
     when "data"
 
 
-      @null_value = @null_value.strip # how come this didnt work above?
+      @null_value = (@null_value || '').strip # how come this didnt work above?
       @data = @data.strip
       vals = @data.split(',').map {|x| x.strip}
       this_time = Time.iso8601(vals[@index_curve_column_index- 1])
