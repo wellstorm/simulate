@@ -6,10 +6,10 @@ require 'wmls'
 require 'template'
 
 url =  'https://witsml.wellstorm.com/witsml/services/store'
-url =  'https://hwmb2.local:8443/witsml/services/store'
+#url =  'https://hwmb2.local:8443/witsml/services/store'
 username = 'admin'
 password = 'quateraf'
-password = 'admin'
+#password = 'admin'
 uid_well= 'bhl-test-1'
 uid_wellbore='wb-1'
 uid_log = 'log-1'
@@ -37,7 +37,7 @@ traj_doc.elements.each('trajectorys/trajectory/trajectoryStation') do |elt|
       abort "Error updating traj: #{status} #{supp_msg}"
     end
 
-    log_doc.elements.each('XXXXXXXXlogs/log/logData/data') do |data|
+    log_doc.elements.each('logs/log/logData/data') do |data|
       vals = data.text.split(',').map {|s| s.to_f}
       log_depth = vals[0]
       
