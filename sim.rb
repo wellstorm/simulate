@@ -15,7 +15,7 @@ uid_wellbore='wb-1'
 uid_log = 'log-1'
 uid_traj = 'traj-1'
 md_last = ARGV[0].to_f || 0
-verbose = true
+verbose = false
 
 traj_file = 'Trajectory.witsml'
 log_file = 'Chalk-GR.witsml'
@@ -47,7 +47,7 @@ traj_doc.elements.each('trajectorys/trajectory/trajectoryStation') do |elt|
         data_text = data_text + "\n    " + data.to_s      
       elsif log_depth > md && data_text.length  > 0
         log_t = log_template uid_well, uid_wellbore, uid_log, log_depth, log_depth, data_text
-        $stderr.puts log_t
+        $stderr.puts log_t if verbose
         status, supp_msg = wmls.update_in_store log_t
         if status != 1
           abort "Error updating log: #{status} #{supp_msg}"
