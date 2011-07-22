@@ -4,6 +4,8 @@
   <nameWell>BHL 1</nameWell>
   <nameWellbore>WB-1</nameWellbore>
   <name>TD Trajectory</name>
+  <dTimTrajStart/>
+  <dTimTrajEnd/>
   <mdMn uom="ft">13892</mdMn>
   <mdMx uom="ft">18610</mdMx>
   <trajectoryStation uid="station-0">

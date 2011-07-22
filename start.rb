@@ -3,9 +3,11 @@ require 'optparse'
 require 'wmls'
 
 url =  'https://witsml.wellstorm.com/witsml/services/store'
+url =  'https://hwmb2.local:8443/witsml/services/store'
 username = 'admin'
 password = 'quateraf'
-uid_well= 'bhl-test'
+password = 'admin'
+uid_well= 'bhl-test-1'
 uid_wellbore='wb-1'
 uid_log = 'log-1'
 uid_traj = 'traj-1'
@@ -48,7 +50,7 @@ EOF
 
 log = <<EOF
 <logs xmlns="http://www.witsml.org/schemas/131" version="1.3.1.1">
-<log  uidWell="#{uid_well}" uidWellbore="#{uid_wellbore}" uid="#{uid_traj}">
+<log  uidWell="#{uid_well}" uidWellbore="#{uid_wellbore}" uid="#{uid_log}">
   <nameWell>BHL TEST 1</nameWell>
   <nameWellbore>WB-1</nameWellbore>
   <name>Chalk GR</name>

@@ -9,11 +9,16 @@ def traj_template uid_well, uid_wellbore, uid_traj, station
 EOF
 end
 
-def log_template uid_well, uid_wellbore, uid_log, vals_string
+def log_template uid_well, uid_wellbore, uid_log, start_index, end_index, vals_string
   template = <<EOF
 <logs xmlns="http://www.witsml.org/schemas/131" version="1.3.1.1">
   <log uidWell="#{uid_well}" uidWellbore="#{uid_wellbore}" uid="#{uid_log}">
-      <logCurveInfo uid='DEPTH'>
+    <indexType>measured depth</indexType>
+<!--
+    <startIndex uom='f'>#{start_index}</startIndex>
+    <endIndex uom='f'>#{end_index}</endIndex>
+-->
+    <logCurveInfo uid='DEPTH'>
       <mnemonic>DEPTH</mnemonic>
       <unit>f</unit>
       <columnIndex>1</columnIndex>
