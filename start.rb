@@ -3,10 +3,10 @@ require 'optparse'
 require 'wmls'
 
 url =  'https://witsml.wellstorm.com/witsml/services/store'
-#url =  'https://hwmb2.local:8443/witsml/services/store'
-username = 'admin'
-password = 'quateraf'
-#password = 'admin'
+
+username = 'YOUR.USER.NAME'
+password = 'YOUR.PASSWORD'
+
 uid_well= 'bhl-test-1'
 uid_wellbore='wb-1'
 uid_log = 'log-1'
@@ -103,6 +103,10 @@ log = <<EOF
   </log>
 </logs>
 EOF
+
+if username =~ /YOUR.*/ || password =~ /YOUR.*/
+  abort 'FAIL you need to edit file start.rb with your username and password.'
+end
 
 wmls = Wmls.new url, username, password
 

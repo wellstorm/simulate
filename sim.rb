@@ -6,10 +6,10 @@ require 'wmls'
 require 'template'
 
 url =  'https://witsml.wellstorm.com/witsml/services/store'
-#url =  'https://hwmb2.local:8443/witsml/services/store'
-username = 'admin'
-password = 'quateraf'
-#password = 'admin'
+
+username = 'YOUR.USER.NAME'
+password = 'YOUR.PASSWORD'
+
 uid_well= 'bhl-test-1'
 uid_wellbore='wb-1'
 uid_log = 'log-1'
@@ -19,6 +19,11 @@ verbose = false
 
 traj_file = 'Trajectory.witsml'
 log_file = 'Chalk-GR.witsml'
+
+
+if username =~ /YOUR.*/ || password =~ /YOUR.*/
+  abort 'FAIL you need to edit file sim.rb with your username and password.'
+end
 
 wmls = Wmls.new url, username, password
 
