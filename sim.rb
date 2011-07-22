@@ -37,20 +37,24 @@ traj_doc.elements.each('trajectorys/trajectory/trajectoryStation') do |elt|
       abort "Error updating traj: #{status} #{supp_msg}"
     end
 
+    data_text = ""
     log_doc.elements.each('logs/log/logData/data') do |data|
       vals = data.text.split(',').map {|s| s.to_f}
       log_depth = vals[0]
       
       if log_depth > md_last && log_depth <= md
         $stderr.puts "log depth #{log_depth}" if verbose
-        log_t = log_template uid_well, uid_wellbore, uid_log, log_depth, log_depth, data.text
-        #$stderr.puts log_t
+        data_text = data_text + "\n    " + data.to_s      
+      elsif log_depth > md && data_text.length  > 0
+        log_t = log_template uid_well, uid_wellbore, uid_log, log_depth, log_depth, data_text
+        $stderr.puts log_t
         status, supp_msg = wmls.update_in_store log_t
         if status != 1
           abort "Error updating log: #{status} #{supp_msg}"
         end
-      
+        break
       end
+      
     end
     puts md  #our output is the last depth we did
     break

@@ -44,7 +44,7 @@ def log_template uid_well, uid_wellbore, uid_log, start_index, end_index, vals_s
       <columnIndex>5</columnIndex>
     </logCurveInfo>
     <logData>
-      <data>#{vals_string}</data>
+      #{vals_string}
     </logData>
   </log>
 </logs>
