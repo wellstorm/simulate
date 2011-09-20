@@ -1,2 +1,3 @@
 ruby start.rb
-echo ruby sim.rb 0 > sim.bat
+REM echo ruby sim.rb 0 > sim.bat 
+echo 0 > last
