@@ -90,10 +90,17 @@ if yes != "yes"
 end
 
 
+delete_state uid_well, uid_wellbore, uid_log
+
 
 puts "deleting well  #{url_well}"
 puts "this can take 10 - 20 minutes if there is a lot of data to delete"
-delete well, url_well, $options[:user_name], $options[:password] 
+begin
+  delete well, url_well, $options[:user_name], $options[:password] 
+rescue
+  puts '...that well does not exist. No problem.'
+end
+
 puts "posting well to #{url_base}"
 begin
   post well, url_base + "/", $options[:user_name], $options[:password] 
@@ -112,8 +119,6 @@ post wellbore, url_well, $options[:user_name], $options[:password]
 
 puts "posting log header to #{url_wellbore}"
 post log_head, url_wellbore, $options[:user_name], $options[:password] 
-
-delete_state uid_well, uid_wellbore, uid_log
 
 puts 
 puts "It looks like everything succeeded."

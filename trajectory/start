@@ -1,0 +1,3 @@
+#!/bin/bash
+rm last
+ruby start.rb
