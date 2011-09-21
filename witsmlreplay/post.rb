@@ -37,10 +37,6 @@ def delete(io, url, user, pass)
 
   req = Net::HTTP::Delete.new(url.path)
   req.basic_auth user, pass if user && user.length > 0
-  req.body_stream = io
-  req.content_type = 'application/xml'
-  #req.content_length = io.stat.size
-  req.content_length = io.size   # specific to StringIO class ? why no stat on that class?
   http = Net::HTTP.new(url.host, url.port)  
   http.use_ssl = true
   http.read_timeout = 3600 # secs
@@ -51,8 +47,6 @@ def delete(io, url, user, pass)
   when Net::HTTPSuccess, Net::HTTPRedirection
     # OK
     res
-  when Net::HTTPCreated
-    res['Location'] 
   else
     res.error!
   end

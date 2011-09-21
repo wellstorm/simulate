@@ -76,11 +76,38 @@ url_well = "#{url_base}/well/#{uid_well}"
 url_wellbore = "#{url_well}/wellbore/#{uid_wellbore}"
 url_log = "#{url_wellbore}/log/#{uid_log}"
 
-puts "posting well to #{url_base}"
+
+puts "This progam will wipe any existing log that has the same uid."
+puts "If the log with uid #{uid_log} exists, we are going to nuke it."
+puts "Are you sure you are ready for as fresh, clean start with a "
+print "new, empty log? If so, type 'yes': "
+
+yes = gets.chomp
+
+if yes != "yes"
+  puts "Well, I'm glad I asked. Quitting now. No harm done."
+  exit 0
+end
+
+
+
+puts "deleting well  #{url_well}"
 puts "this can take 10 - 20 minutes if there is a lot of data to delete"
 delete well, url_well, $options[:user_name], $options[:password] 
-post well, url_base + "/", $options[:user_name], $options[:password] 
-puts "posting wellbore to #{url_well}"
+puts "posting well to #{url_base}"
+begin
+  post well, url_base + "/", $options[:user_name], $options[:password] 
+rescue Net::HTTPServerException => e
+  puts "ERROR #{e}"
+  puts "EXPLANATION: Deletes happen asynchronously. So what's likely happened is"
+  puts "you see an error 409 when we try to upload the well. Don't sweat it."
+  puts "It means, Try again later. Give it a few minutes and try again."
+  puts "It might take a few minutes to completely delete the well and its contents. "
+  puts "Eventually, one of these tries will succeed. "
+  puts "I'm quitting now."
+  exit(1)
+end
+  puts "posting wellbore to #{url_well}"
 post wellbore, url_well, $options[:user_name], $options[:password] 
 
 puts "posting log header to #{url_wellbore}"
@@ -94,8 +121,13 @@ puts "You have an empty log named \"#{name_well}\", in well \"#{name_well}\", we
 puts 
 puts "Now run the following command to start the simulation:"
 puts
+puts "----------------------------------------------------------------------------------------"
 puts "ruby -I. replay.rb -r #{url_log} -l \"#{$options[:log]}\" -u #{$options[:user_name]} -p #{$options[:password]}"
+puts "----------------------------------------------------------------------------------------"
 puts
-
+puts "You can stop the simulation with Ctrl-C. You can continue it later, "
+puts "picking up where you left off, by using the command above again."
+puts "Only run this script, start.rb, when you want to make a clean start"
+puts "with a new, empty log."
 
 
