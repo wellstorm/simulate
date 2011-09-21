@@ -94,7 +94,7 @@ puts "You have an empty log named \"#{name_well}\", in well \"#{name_well}\", we
 puts 
 puts "Now run the following command to start the simulation:"
 puts
-puts "ruby -I. witsmlreplay.rb -r #{url_log} -l \"#{$options[:log]}\" -u #{$options[:user_name]} -p #{$options[:password]}"
+puts "ruby -I. replay.rb -r #{url_log} -l \"#{$options[:log]}\" -u #{$options[:user_name]} -p #{$options[:password]}"
 puts
 
 
