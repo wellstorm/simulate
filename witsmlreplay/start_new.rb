@@ -27,8 +27,8 @@ end
 
 opts.parse!
 
-log_fragment =  IO.read $options[:log], 0, 200000
-log_head = /(^.*)<\s*logData/.match(log_fragment)[1] + "</log></logs>"
+log_fragment =  IO.read $options[:log], 200000
+log_head = /(.*)<\s*logData/m.match(log_fragment)[1] + "</log></logs>"
 
 uid_log =  /\suid\s*=\s*['"]([^'"]+)['"]/.match(log_head)[1]
 uid_well =  /\suidWell\s*=\s*['"]([^'"]+)['"]/.match(log_head)[1]
@@ -36,12 +36,14 @@ uid_wellbore =  /\suidWellbore\s*=\s*['"]([^'"]+)['"]/.match(log_head)[1]
 
 name_well =  /<\s*nameWell\s*>(.*)<\/nameWell\s*>/.match(log_head)[1]
 name_wellbore =  /<\s*nameWellbore\s*>(.*)<\/nameWellbore\s*>/.match(log_head)[1]
+name_log =  /<\s*name\s*>(.*)<\/name\s*>/.match(log_head)[1]
 
 puts "uidWell     : #{uid_well}"
 puts "uidWellbore : #{uid_wellbore}"
 puts "uid         : #{uid_log}"
 puts "nameWell    : #{name_well}"
 puts "nameWellbore: #{name_wellbore}"
+puts "nam         : #{name_log}"
 
 well=<<EOF
 <wells xmlns="http://www.witsml.org/schemas/131">
@@ -62,17 +64,28 @@ wellbore=<<EOF
 EOF
 
 url_base = $options[:url]
-url_well = "#{url_base}/well/#{@uid_well}"
+url_well = "#{url_base}/well/#{uid_well}"
 url_wellbore = "#{url_well}/wellbore/#{uid_wellbore}"
 url_log = "#{url_wellbore}/log/#{uid_log}"
 
 puts "posting well to #{url_base}"
-post well, url_base, $options[:user_name], $options[:password] 
+puts "this can take 10 - 20 minutes if there is a lot of data to delete"
+delete well, url_well, $options[:user_name], $options[:password] 
+post well, url_base + "/", $options[:user_name], $options[:password] 
 puts "posting wellbore to #{url_well}"
 post wellbore, url_well, $options[:user_name], $options[:password] 
 
 puts "posting log header to #{url_wellbore}"
 post log_head, url_wellbore, $options[:user_name], $options[:password] 
+
+puts 
+puts "It looks like everything succeeded."
+puts "You have an empty log named \"#{name_well}\", in well \"#{name_well}\", wellbore \"#{name_wellbore}\"."
+puts 
+puts "Now run the following command to start the simulation:"
+puts
+puts "ruby -I. witsmlreplay.rb -r #{url_log} -l \"#{$options[:log]}\" -u #{$options[:user_name]} -p #{$options[:password]}"
+puts
 
 
 

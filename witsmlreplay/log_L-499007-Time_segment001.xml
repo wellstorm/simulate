@@ -7,8 +7,8 @@
          <FileCreator>Petrolink International</FileCreator>
       </FileCreationInformation>
    </documentInfo>
-   <log uidWell="1d8af245-8da9-4ece-86cd-e115e9c88a3e" uidWellbore="2ed0ea0c-ef3a-4c32-87c1-37dd31826d7a" uid="L-499007-Time">
-      <nameWell>DemoWell01</nameWell>
+   <log uidWell="DEMO1" uidWellbore="WB1" uid="L-499007-Time">
+      <nameWell>DemoWell01 LIVE</nameWell>
       <nameWellbore>Wellbore A</nameWellbore>
       <name>Geoservices 23 inch - Time Log</name>
       <dataRowCount>125854</dataRowCount>
