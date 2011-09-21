@@ -34,7 +34,7 @@ uid_log = 'log-1'
 uid_mudlog = 'mudlog-1'
 
 md_last = ARGV[0].to_f || 0
-verbose = false
+verbose = true
 
 mudlog_file = 'MudLog.witsml'
 log_file = 'DepthLog.witsml'

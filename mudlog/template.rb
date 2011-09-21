@@ -18,31 +18,93 @@ def log_template uid_well, uid_wellbore, uid_log, start_index, end_index, vals_s
     <startIndex uom='f'>#{start_index}</startIndex>
     <endIndex uom='f'>#{end_index}</endIndex>
 -->
-    <logCurveInfo uid='DEPTH'>
-      <mnemonic>DEPTH</mnemonic>
-      <unit>f</unit>
-      <columnIndex>1</columnIndex>
-    </logCurveInfo>
-    <logCurveInfo uid='MTTV'>
-      <mnemonic>MTTV</mnemonic>
-      <unit>f</unit>
-      <columnIndex>2</columnIndex>
-    </logCurveInfo>
-    <logCurveInfo uid='ROP'>
-      <mnemonic>ROP</mnemonic>
-      <unit>ft/h</unit>
-      <columnIndex>3</columnIndex>
-    </logCurveInfo>
-    <logCurveInfo uid='SGR'>
-      <mnemonic>SGR</mnemonic>
-      <unit>gapi</unit>
-      <columnIndex>4</columnIndex>
-    </logCurveInfo>
-    <logCurveInfo uid='VIBC'>
-      <mnemonic>VIBC</mnemonic>
-      <unit>cps</unit>
-      <columnIndex>5</columnIndex>
-    </logCurveInfo>
+
+  <logCurveInfo uid='000'>
+    <mnemonic>__INDEX_MD__</mnemonic>
+    <unit>ft</unit>
+    <columnIndex>1</columnIndex>
+  </logCurveInfo>
+  <logCurveInfo uid='001'>
+    <mnemonic>ROP</mnemonic>
+    <unit>FT/HR</unit>
+    <columnIndex>2</columnIndex>
+    <curveDescription>Rate of Penetration</curveDescription>
+  </logCurveInfo>
+  <logCurveInfo uid='002'>
+    <mnemonic>WOB</mnemonic>
+    <unit>KLBS</unit>
+    <columnIndex>3</columnIndex>
+    <curveDescription>Weight on Bit</curveDescription>
+  </logCurveInfo>
+  <logCurveInfo uid='003'>
+    <mnemonic>RPM</mnemonic>
+    <unit>RPM</unit>
+    <columnIndex>4</columnIndex>
+    <curveDescription>Revolutions per Minute</curveDescription>
+  </logCurveInfo>
+  <logCurveInfo uid='004'>
+    <mnemonic>TRQ</mnemonic>
+    <unit>AMPS</unit>
+    <columnIndex>5</columnIndex>
+    <curveDescription>Torque</curveDescription>
+  </logCurveInfo>
+  <logCurveInfo uid='005'>
+    <mnemonic>SPP</mnemonic>
+    <unit>PSI</unit>
+    <columnIndex>6</columnIndex>
+    <curveDescription>Stand Pipe Pressure</curveDescription>
+  </logCurveInfo>
+  <logCurveInfo uid='006'>
+    <mnemonic>TG</mnemonic>
+    <unit>%</unit>
+    <columnIndex>7</columnIndex>
+    <curveDescription>Total Gas</curveDescription>
+  </logCurveInfo>
+  <logCurveInfo uid='007'>
+    <mnemonic>C1</mnemonic>
+    <unit>(ppm)</unit>
+    <columnIndex>8</columnIndex>
+    <curveDescription>Methane</curveDescription>
+  </logCurveInfo>
+  <logCurveInfo uid='008'>
+    <mnemonic>C2</mnemonic>
+    <unit>(ppm)</unit>
+    <columnIndex>9</columnIndex>
+    <curveDescription>Ethane</curveDescription>
+  </logCurveInfo>
+  <logCurveInfo uid='009'>
+    <mnemonic>C3</mnemonic>
+    <unit>(ppm)</unit>
+    <columnIndex>10</columnIndex>
+    <curveDescription>Propane</curveDescription>
+  </logCurveInfo>
+  <logCurveInfo uid='010'>
+    <mnemonic>IC4</mnemonic>
+    <unit>(ppm)</unit>
+    <columnIndex>11</columnIndex>
+    <curveDescription>Iso-Butane</curveDescription>
+  </logCurveInfo>
+  <logCurveInfo uid='011'>
+    <mnemonic>NC4</mnemonic>
+    <unit>(ppm)</unit>
+    <columnIndex>12</columnIndex>
+    <curveDescription>Normal Butane</curveDescription>
+  </logCurveInfo>
+  <logCurveInfo uid='012'>
+    <mnemonic>IC5</mnemonic>
+    <unit>PPM</unit>
+    <columnIndex>13</columnIndex>
+    <curveDescription>Iso-Pentane</curveDescription>
+  </logCurveInfo>
+  <logCurveInfo uid='013'>
+    <mnemonic>NC5</mnemonic>
+    <unit>PPM</unit>
+    <columnIndex>14</columnIndex>
+    <curveDescription>Normal Pentane</curveDescription>
+  </logCurveInfo>
+
+
+
     <logData>
       #{vals_string}
     </logData>
