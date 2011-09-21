@@ -7,19 +7,20 @@ require 'template'
 
 url =  'https://witsml.wellstorm.com/witsml/services/store'
 
-username = 'YOUR.USER.NAME'
-password = 'YOUR.PASSWORD'
+username = 'partner'
+password = 'partner'
 
-uid_well= 'bhl-test-1'
+uid_well= 'depth-demo-1'
 uid_wellbore='wb-1'
 uid_log = 'log-1'
 uid_traj = 'traj-1'
+uid_traj = 'mudlog-1'
 md_last = ARGV[0].to_f || 0
 verbose = false
 
 traj_file = 'Trajectory.witsml'
 log_file = 'Chalk-GR.witsml'
-
+mudlog_file = 'MudLog.witsml'
 
 if username =~ /YOUR.*/ || password =~ /YOUR.*/
   abort 'FAIL you need to edit file sim.rb with your username and password.'
@@ -29,6 +30,7 @@ wmls = Wmls.new url, username, password
 
 traj_doc = REXML::Document.new(IO.read(traj_file))
 log_doc = REXML::Document.new(IO.read(log_file))
+mudlog_doc = REXML::Document.new(IO.read(mudlog_file))
 
 traj_doc.elements.each('trajectorys/trajectory/trajectoryStation') do |elt|
   md =  elt.elements['md'].text.to_f
@@ -61,6 +63,28 @@ traj_doc.elements.each('trajectorys/trajectory/trajectoryStation') do |elt|
       end
       
     end
+
+
+
+   mudlog_doc.elements.each('mudLogs/mudLog/geologyInterval') do |gi|
+      
+      mudlog_depth = gi.mdBottom;
+      
+      if mudlog_depth > md_last && mudlog_depth <= md
+        $stderr.puts "mudlog depth #{mudlog_depth}" if verbose
+        data_text = data_text + "\n    " + data.to_s      
+      elsif log_depth > md && data_text.length  > 0
+        log_t = log_template uid_well, uid_wellbore, uid_log, log_depth, log_depth, data_text
+        $stderr.puts log_t if verbose
+        status, supp_msg = wmls.update_in_store log_t
+        if status != 1
+          abort "Error updating log: #{status} #{supp_msg}"
+        end
+        break
+      end
+      
+    end
+
     puts md  #our output is the last depth we did
     break
   end

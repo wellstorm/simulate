@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mudLogs xmlns="http://www.witsml.org/schemas/131" version="1.3.1.1">
-<mudLog xmlns="http://www.witsml.org/schemas/131" uid="{6ACD953E-BC91-4BE9-8F41-7E3CEA35AA28}" uidWell="c63319ac-9260-44f0-a8d5-6730d521180e" uidWellbore="431585c6-00de-40b0-af4f-92af3b1bce7d">
+<mudLog xmlns="http://www.witsml.org/schemas/131" uid="mudlog-1" uidWell="bhl-1" uidWellbore="wb-1">
   <nameWell>Geologix 1</nameWell>
   <nameWellbore>WB 1</nameWellbore>
   <name>Edward v6 WellOps</name>
@@ -28,7 +28,7 @@
     <type>casing point comment</type>
     <mdTop uom="ft">4454.3581</mdTop>
     <mdBottom uom="ft">4454.3581</mdBottom>
-    <text>9 5/8" Casing 2503ft</text>
+     <text>9 5/8" Casing 2503ft</text>
   </parameter>
   <geologyInterval uid="00306">
     <typeLithology>interpreted</typeLithology>

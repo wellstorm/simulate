@@ -2,12 +2,12 @@
 require 'optparse'
 require 'wmls'
 
-url =  'https://witsml.wellstorm.com/witsml/services/store'
+url =  'https://wsp1.local/witsml/services/store'
 
-username = 'YOUR.USER.NAME'
-password = 'YOUR.PASSWORD'
+username = 'partner'
+password = 'partner'
 
-uid_well= 'bhl-test-1'
+uid_well= 'bhl-1'
 uid_wellbore='wb-1'
 uid_log = 'log-1'
 uid_traj = 'traj-1'
@@ -16,28 +16,24 @@ uid_traj = 'mudlog-1'
 well = <<EOF
 <wells xmlns="http://www.witsml.org/schemas/131" version="1.3.1.1">
   <well  uid="#{uid_well}">
-    <name>BHL TEST 1</name>
+    <name>DemoWell DEPTH</name>
   </well>
 </wells>
 EOF
 
-
-
 wellbore = <<EOF
 <wellbores xmlns="http://www.witsml.org/schemas/131" version="1.3.1.1">
   <wellbore uid="#{uid_wellbore}" uidWell="#{uid_well}">
-    <nameWell>BHL TEST 1</nameWell>
+    <nameWell>DemoWell DEPTH</nameWell>
     <name>WB-1</name>
   </wellbore>
 </wellbores>
 EOF
 
-
-
 traj = <<EOF
 <trajectorys xmlns="http://www.witsml.org/schemas/131" version="1.3.1.1">
   <trajectory uidWell="#{uid_well}" uidWellbore="#{uid_wellbore}" uid="#{uid_traj}">
-  <nameWell>BHL TEST 1</nameWell>
+  <nameWell>DemoWell DEPTH</nameWell>
   <nameWellbore>WB-1</nameWellbore>
   <name>Trajectory</name>
   <dTimTrajStart/>
@@ -48,11 +44,10 @@ traj = <<EOF
 </trajectorys>
 EOF
 
-
 log = <<EOF
 <logs xmlns="http://www.witsml.org/schemas/131" version="1.3.1.1">
 <log  uidWell="#{uid_well}" uidWellbore="#{uid_wellbore}" uid="#{uid_log}">
-  <nameWell>BHL TEST 1</nameWell>
+  <nameWell>DemoWell DEPTH</nameWell>
   <nameWellbore>WB-1</nameWellbore>
   <name>Chalk GR</name>
   <objectGrowing>false</objectGrowing>
