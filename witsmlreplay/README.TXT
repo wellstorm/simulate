@@ -2,7 +2,7 @@ There are two Ruby program in here: start.rb and replay.rb.
 
 you need Ruby 1.92. Windows: http://rubyinstaller.org/downloads/. Others: http://www.ruby-lang.org/en/downloads/
 
-The start.rb program initializes an empty log. You pass it the path to a WITSML log file on your local disk. The log should be time-based data. start.rb will use that one file to initialize, on the server, a well and wellbore containing that log. On the server, the log that start.rb creates will have no data in it yet.
+The start.rb program initializes an empty log. You pass it the path to a WITSML log file on your local disk. The log should be time-based data. start.rb will use that one file to initialize, on the server, a well and wellbore containing that log. On the server, the log that start.rb creates will have no <data> in it yet -- just header info.
 
 Here is how you can start the simulation:
 
