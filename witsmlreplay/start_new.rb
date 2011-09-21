@@ -24,6 +24,14 @@ opts =OptionParser.new do |o|
   end
 end
 
+def delete_state (uid_well, uid_wellbore, uid_log)
+  begin
+    File.delete ".witsml-replay/#{uid_well}.#{uid_wellbore}.#{uid_log}"
+  rescue
+  end
+
+end
+
 
 opts.parse!
 
@@ -77,6 +85,8 @@ post wellbore, url_well, $options[:user_name], $options[:password]
 
 puts "posting log header to #{url_wellbore}"
 post log_head, url_wellbore, $options[:user_name], $options[:password] 
+
+delete_state uid_well, uid_wellbore, uid_log
 
 puts 
 puts "It looks like everything succeeded."
