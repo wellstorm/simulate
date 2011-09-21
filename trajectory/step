@@ -1,0 +1,4 @@
+#!/bin/bash
+ruby -I. sim.rb `cat last` > last
+cat last
+

@@ -2,18 +2,38 @@
 require 'optparse'
 require 'rexml/document'
 require 'wmls'
-
 require 'template'
 
 url =  'https://witsml.wellstorm.com/witsml/services/store'
 
-username = 'YOUR.USER.NAME'
-password = 'YOUR.PASSWORD'
+username = 'partner'
+password = 'partner'
 
-uid_well= 'bhl-test-1'
+opts =OptionParser.new do |o|
+  o.banner = "Usage: start_new.rb [options]"
+
+  o.on("-r", "--url url", "URL of the repository") do |v|
+    url = v
+  end
+  o.on("-u", "--username USER", "HTTP user name (optional)") do |v|
+    user_name = v
+  end
+  o.on("-p", "--password PASS", "HTTP password (optional)") do |v|
+    password = v
+  end
+  o.on_tail("-h", "--help", "Show this message") do
+    puts o
+    exit
+  end
+end
+
+opts.parse!
+
+uid_well= 'bhl-1'
 uid_wellbore='wb-1'
 uid_log = 'log-1'
 uid_traj = 'traj-1'
+
 md_last = ARGV[0].to_f || 0
 verbose = false
 
@@ -61,6 +81,7 @@ traj_doc.elements.each('trajectorys/trajectory/trajectoryStation') do |elt|
       end
       
     end
+
     puts md  #our output is the last depth we did
     break
   end

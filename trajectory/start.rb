@@ -2,41 +2,56 @@
 require 'optparse'
 require 'wmls'
 
-url =  'https://witsml.wellstorm.com/witsml/services/store'
+url =  'https://wsp1.local/witsml/services/store'
 
-username = 'YOUR.USER.NAME'
-password = 'YOUR.PASSWORD'
+username = 'partner'
+password = 'partner'
 
-uid_well= 'bhl-test-1'
+uid_well= 'bhl-1'
 uid_wellbore='wb-1'
 uid_log = 'log-1'
 uid_traj = 'traj-1'
 
+opts =OptionParser.new do |o|
+  o.banner = "Usage: start_new.rb [options]"
+
+  o.on("-r", "--url url", "URL of the repository") do |v|
+    url = v
+  end
+  o.on("-u", "--username USER", "HTTP user name (optional)") do |v|
+    user_name = v
+  end
+  o.on("-p", "--password PASS", "HTTP password (optional)") do |v|
+    password = v
+  end
+  o.on_tail("-h", "--help", "Show this message") do
+    puts o
+    exit
+  end
+end
+opts.parse!
+
 well = <<EOF
 <wells xmlns="http://www.witsml.org/schemas/131" version="1.3.1.1">
   <well  uid="#{uid_well}">
-    <name>BHL TEST 1</name>
+    <name>DemoWell TRAJECTORY</name>
   </well>
 </wells>
 EOF
 
-
-
 wellbore = <<EOF
 <wellbores xmlns="http://www.witsml.org/schemas/131" version="1.3.1.1">
   <wellbore uid="#{uid_wellbore}" uidWell="#{uid_well}">
-    <nameWell>BHL TEST 1</nameWell>
+    <nameWell>DemoWell TRAJECTORY</nameWell>
     <name>WB-1</name>
   </wellbore>
 </wellbores>
 EOF
 
-
-
 traj = <<EOF
 <trajectorys xmlns="http://www.witsml.org/schemas/131" version="1.3.1.1">
   <trajectory uidWell="#{uid_well}" uidWellbore="#{uid_wellbore}" uid="#{uid_traj}">
-  <nameWell>BHL TEST 1</nameWell>
+  <nameWell>DemoWell TRAJECTORY</nameWell>
   <nameWellbore>WB-1</nameWellbore>
   <name>Trajectory</name>
   <dTimTrajStart/>
@@ -47,11 +62,10 @@ traj = <<EOF
 </trajectorys>
 EOF
 
-
 log = <<EOF
 <logs xmlns="http://www.witsml.org/schemas/131" version="1.3.1.1">
 <log  uidWell="#{uid_well}" uidWellbore="#{uid_wellbore}" uid="#{uid_log}">
-  <nameWell>BHL TEST 1</nameWell>
+  <nameWell>DemoWell DEPTH</nameWell>
   <nameWellbore>WB-1</nameWellbore>
   <name>Chalk GR</name>
   <objectGrowing>false</objectGrowing>
@@ -103,10 +117,6 @@ log = <<EOF
   </log>
 </logs>
 EOF
-
-if username =~ /YOUR.*/ || password =~ /YOUR.*/
-  abort 'FAIL you need to edit file start.rb with your username and password.'
-end
 
 wmls = Wmls.new url, username, password
 
