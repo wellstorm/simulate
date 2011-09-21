@@ -29,7 +29,7 @@ opts =OptionParser.new do |o|
     exit
   end
 end
-
+opts.parse!
 
 well = <<EOF
 <wells xmlns="http://www.witsml.org/schemas/131" version="1.3.1.1">
@@ -117,10 +117,6 @@ log = <<EOF
   </log>
 </logs>
 EOF
-
-if username =~ /YOUR.*/ || password =~ /YOUR.*/
-  abort 'FAIL you need to edit file start.rb with your username and password.'
-end
 
 wmls = Wmls.new url, username, password
 

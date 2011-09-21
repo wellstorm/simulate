@@ -24,7 +24,6 @@ opts =OptionParser.new do |o|
   end
 end
 
-
 uid_well= 'geologix-1'
 uid_wellbore='wb-1'
 uid_log = 'log-1'
@@ -184,3 +183,22 @@ mudlog = <<EOF
 </mudLog>
 </mudLogs>
 EOF
+
+
+wmls = Wmls.new url, username, password
+
+status, supp_msg = wmls.delete_from_store well
+puts "Delete well status = #{status} #{supp_msg}"
+
+status, supp_msg = wmls.add_to_store well
+puts "Add well status = #{status} #{supp_msg}"
+
+status, supp_msg  = wmls.add_to_store wellbore
+puts "Add wellbore status = #{status} #{supp_msg}"
+
+status, supp_msg  = wmls.add_to_store mudlog
+puts "Add mudLog status = #{status} #{supp_msg}"
+
+status, supp_msg  = wmls.add_to_store log
+puts "Add log status = #{status} #{supp_msg}"
+
