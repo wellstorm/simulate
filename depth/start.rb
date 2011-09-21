@@ -11,6 +11,7 @@ uid_well= 'bhl-test-1'
 uid_wellbore='wb-1'
 uid_log = 'log-1'
 uid_traj = 'traj-1'
+uid_traj = 'mudlog-1'
 
 well = <<EOF
 <wells xmlns="http://www.witsml.org/schemas/131" version="1.3.1.1">
@@ -102,6 +103,43 @@ log = <<EOF
   </logCurveInfo>
   </log>
 </logs>
+EOF
+
+mudlog = <<EOF
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mudLogs xmlns="http://www.witsml.org/schemas/131" version="1.3.1.1">
+<mudLog xmlns="http://www.witsml.org/schemas/131" uidWell="#{uid_well}" uidWellbore="#{uid_wellbore}" uid="#{uid_mudlog}">
+  <nameWell>Geologix 1</nameWell>
+  <nameWellbore>WB 1</nameWellbore>
+  <name>Edward v6 WellOps</name>
+  <startMd uom="ft">0</startMd>
+  <endMd uom="ft">6539</endMd>
+  <parameter uid="00000">
+    <type>casing point comment</type>
+    <mdTop uom="ft">1093.3941</mdTop>
+    <mdBottom uom="ft">1093.3941</mdBottom>
+    <text>20" Casing 1012ft</text>
+  </parameter>
+  <parameter uid="00001">
+    <type>casing point comment</type>
+    <mdTop uom="ft">2641.3453</mdTop>
+    <mdBottom uom="ft">2641.3453</mdBottom>
+    <text>13 3/8" Casing 2503ft</text>
+  </parameter>
+  <parameter uid="00003">
+    <type>casing point comment</type>
+    <mdTop uom="ft">3079.7415</mdTop>
+    <mdBottom uom="ft">3079.7415</mdBottom>
+    <text>7" Liner 3657.2ft</text>
+  </parameter>
+  <parameter uid="00002">
+    <type>casing point comment</type>
+    <mdTop uom="ft">4454.3581</mdTop>
+    <mdBottom uom="ft">4454.3581</mdBottom>
+    <text>9 5/8" Casing 2503ft</text>
+  </parameter>
+</mudLog>
+</mudLogs>
 EOF
 
 if username =~ /YOUR.*/ || password =~ /YOUR.*/
