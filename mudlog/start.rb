@@ -13,7 +13,7 @@ opts =OptionParser.new do |o|
     url = v
   end
   o.on("-u", "--username USER", "HTTP user name (optional)") do |v|
-    user_name = v
+    username = v
   end
   o.on("-p", "--password PASS", "HTTP password (optional)") do |v|
     password = v
@@ -23,6 +23,8 @@ opts =OptionParser.new do |o|
     exit
   end
 end
+
+opts.parse!
 
 uid_well= 'geologix-1'
 uid_wellbore='wb-1'
