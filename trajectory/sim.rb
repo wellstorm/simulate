@@ -4,7 +4,7 @@ require 'rexml/document'
 require 'wmls'
 require 'template'
 
-url =  'https://witsml.wellstorm.com/witsml/services/store'
+url =  'https://wsp1.local:24443/witsml/services/store'
 
 username = 'partner'
 password = 'partner'

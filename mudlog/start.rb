@@ -1,7 +1,7 @@
 require 'optparse'
 require 'wmls'
 
-url =  'https://wsp1.local/witsml/services/store'
+url =  'https://wsp1.local:24443/witsml/services/store'
 
 username = 'partner'
 password = 'partner'
