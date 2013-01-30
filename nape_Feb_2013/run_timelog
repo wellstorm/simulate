@@ -1,2 +1,4 @@
 #!/bin/bash
-ruby -I. replay.rb -r https://wsp1.local:24443/witsml/repository/well/DEMO1/wellbore/WB1/log/L-499007-Time -l log_L-499007-Time_segment001.xml -u partner -p partner
+LOG_URL=${SIM_BASE_URL}/well/${SIM_UID_WELL}/wellbore/${SIM_UID_WELL}-wb1/log/${SIM_UID_TIME_LOG}
+ruby -I. run_timelog.rb --url "$LOG_URL"  --log "$SIM_TIME_LOG_FILE"  -u $SIM_USERNAME -p $SIM_PASSWORD
+

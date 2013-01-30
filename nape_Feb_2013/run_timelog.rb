@@ -23,6 +23,8 @@ opts =OptionParser.new do |o|
   o.on("-l", "--log LOGFILE", "Path to the log data source") do |v|
     $options[:log] = v
   end
+      
+    
   o.on_tail("-h", "--help", "Show this message") do
     puts o
     exit
