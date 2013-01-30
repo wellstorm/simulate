@@ -1,0 +1,2 @@
+#!/bin/bash
+ruby -I. replay.rb -r https://wsp1.local:24443/witsml/repository/well/DEMO1/wellbore/WB1/log/L-499007-Time -l log_L-499007-Time_segment001.xml -u partner -p partner

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<formationMarkers xmlns="http://www.witsml.org/schemas/1series" version="1.4.1.0">
+<formationMarker xmlns="http://www.witsml.org/schemas/1series" uid="EAGLEFORD" uidWell="42-177-32094-00-00" uidWellbore="42-177-32094-00-00-wb1">
+  <nameWell>KOENNING UNIT</nameWell>
+  <nameWellbore>KOENNING UNIT</nameWellbore>
+  <name>EAGLEFORD</name>
+  <mdLogSample uom="ft">10962</mdLogSample>
+  <commonData>
+    <dTimCreation>2012-06-13T22:31:18.601612+00:00</dTimCreation>
+    <dTimLastChange>2012-06-13T22:31:18.601612+00:00</dTimLastChange>
+  </commonData>
+</formationMarker>
+</formationMarkers>

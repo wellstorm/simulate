@@ -1,0 +1,2 @@
+#!/bin/bash
+ruby -I. start_well.rb --url $SIM_BASE_URL -u $SIM_USERNAME -p $SIM_PASSWORD --well "$SIM_WELL_FILE" --wellbore "$SIM_WELLBORE_FILE" --uidWell "$SIM_UID_WELL" --nameWell "$SIM_NAME_WELL"   

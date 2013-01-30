@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<wells xmlns="http://www.witsml.org/schemas/1series" version="1.4.1.0">
+<well xmlns="http://www.witsml.org/schemas/1series" uid="@UID_WELL@">
+  <name>@NAME_WELL@</name>
+  <field>EAGLEVILLE</field>
+  <country>USA</country>
+  <state>TX</state>
+  <county>Gonzales</county>
+  <operator>RILEY EXPLORATION, LLC</operator>
+  <numAPI>42-177-32094-00-00</numAPI>
+  <dTimSpud>2010-04-15T04:59:59.999985+00:00</dTimSpud>
+  <wellDatum uid="KB">
+    <!--ADDED: @uid to-element='wellDatum'.-->
+    <!--DELETED: @defaultMeasuredDepth='true' from-element=wellDatum-->
+    <!--DELETED: @defaultVerticalDepth='true' from-element=wellDatum-->
+    <code>KB</code>
+    <elevation datum="SL" uom="ft">407</elevation>
+  </wellDatum>
+  <wellLocation uid="loc-1">
+    <latitude uom="dega">29.1781</latitude>
+    <longitude uom="dega">-97.6049</longitude>
+  </wellLocation>
+  <commonData>
+    <dTimCreation>2012-06-08T19:47:56.461984+00:00</dTimCreation>
+    <dTimLastChange>2012-06-08T19:47:56.461984+00:00</dTimLastChange>
+  </commonData>
+</well>
+</wells>

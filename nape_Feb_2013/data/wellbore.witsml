@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<wellbores xmlns="http://www.witsml.org/schemas/1series" version="1.4.1.0">
+<wellbore xmlns="http://www.witsml.org/schemas/1series" uid="@UID_WELLBORE@" uidWell="@UID_WELL@">
+  <nameWell>@NAME_WELL@</nameWell>
+  <name>@NAME_WELLBORE@</name>
+  <commonData>
+    <dTimCreation>2012-06-08T21:22:04.772836+00:00</dTimCreation>
+    <dTimLastChange>2012-06-08T21:22:04.772836+00:00</dTimLastChange>
+  </commonData>
+</wellbore>
+</wellbores>

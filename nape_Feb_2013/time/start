@@ -1,0 +1,2 @@
+#!/bin/bash
+ruby -I. start.rb -l log_L-499007-Time_segment001.xml -r https://wsp1.local:24443/witsml/repository -u partner -p partner
