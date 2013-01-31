@@ -6,7 +6,8 @@ export SIM_WITSML_STORE_URL="https://di.wellstorm.com:443/witsml/services/store"
 #
 # UIDS
 #
-export SIM_UID_WELL="LIVE-42-177-32094-00-00"
+export SIM_UID_WELL="42-177-32094-00-99"
+#export SIM_UID_WELL="LIVE-42-177-32094-00-00"
 export SIM_UID_TIME_LOG="LIVE-L-499007-Time"
 export SIM_UID_DEPTH_LOG="LIVE-711f5bef-Depth"
 #

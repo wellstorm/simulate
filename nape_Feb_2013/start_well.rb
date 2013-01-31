@@ -42,19 +42,21 @@ end
 
 def replace_well_object_text(s, uid_well, name_well)
   begin
-    s["@UID_WELL@"] = uid_well
-    s["@NAME_WELL@"] = name_well
+    s = s.gsub("@UID_WELL@", uid_well)
+    s = s.gsub("@NAME_WELL@", name_well)    
   rescue
+    puts "error"
   end
 end
 
 def replace_wellbore_object_text(s, uid_well, uid_wellbore, name_well, name_wellbore)
   begin
-    s["@UID_WELL@"] = uid_well
-    s["@NAME_WELL@"] = name_well
-    s["@UID_WELLBORE@"] = uid_wellbore
-    s["@NAME_WELLBORE@"] = name_wellbore    
+    s = s.gsub("@UID_WELL@" ,uid_well)
+    s = s.gsub("@NAME_WELL@", name_well)
+    s = s.gsub("@UID_WELLBORE@", uid_wellbore)
+    s = s.gsub("@NAME_WELLBORE@", name_wellbore)    
   rescue
+    puts "error"
   end
 end
 
@@ -72,8 +74,8 @@ puts "uidWellbore : #{uid_wellbore}"
 puts "nameWell    : #{name_well}"
 puts "nameWellbore: #{name_wellbore}"
 
-replace_well_object_text(well_file, uid_well, name_well)
-replace_wellbore_object_text(wellbore_file, uid_well, uid_wellbore, name_well, name_wellbore)
+well_file = replace_well_object_text(well_file, uid_well, name_well)
+wellbore_file = replace_wellbore_object_text(wellbore_file, uid_well, uid_wellbore, name_well, name_wellbore)
 
   
 # we use these for the delete template

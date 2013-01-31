@@ -1,4 +1,5 @@
 export SIM_BASE_URL="https://artemis:8443/witsml/repository"
+export SIM_WITSML_STORE_URL="https://artemis:8443/witsml/services/store"
 #
 # UIDS
 #
