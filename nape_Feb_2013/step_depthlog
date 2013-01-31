@@ -5,6 +5,6 @@ then
 depth_step="${1}"
 fi
 echo "Step is ${depth_step}" 
-ruby -I. step_depthlog.rb --url https://artemis:8443/witsml/services/store --log "$SIM_DEPTH_LOG_FILE" --uidWell "$SIM_UID_WELL" --uidLog "$SIM_UID_DEPTH_LOG" -u $SIM_USERNAME -p $SIM_PASSWORD --step_depth "${depth_step}" --start_depth `cat last_depth` > last_depth
+ruby -I. step_depthlog.rb --url "$SIM_WITSML_STORE_URL" --log "$SIM_DEPTH_LOG_FILE" --uidWell "$SIM_UID_WELL" --uidLog "$SIM_UID_DEPTH_LOG" -u $SIM_USERNAME -p $SIM_PASSWORD --step_depth "${depth_step}" --start_depth `cat last_depth` > last_depth
 cat last_depth
 
