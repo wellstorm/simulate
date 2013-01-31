@@ -1,2 +1,3 @@
 #!/bin/bash
+echo 0 > last_depth
 ruby -I. init_log.rb --url $SIM_BASE_URL -u $SIM_USERNAME -p $SIM_PASSWORD --log "$SIM_DEPTH_LOG_FILE" --uidWell "$SIM_UID_WELL" --uidLog "$SIM_UID_DEPTH_LOG" --nameWell "$SIM_NAME_WELL" --nameLog "$SIM_NAME_DEPTH_LOG"

@@ -95,7 +95,7 @@ puts "url_wellbore: #{url_wellbore}"
 
 replace_log_object_text(log_head, uid_well, uid_wellbore, uid_log, name_well, name_wellbore, name_log)
 
-puts "Log head is:\n #{log_head}"
+#puts "Log head is:\n #{log_head}"
 
 puts "\nThis progam will wipe any existing log that has the same uid."
 puts "If the log with: uidWell='#{uid_well}' uidWellbore='#{uid_wellbore}'"
