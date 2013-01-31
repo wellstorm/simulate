@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<logs xmlns="http://www.witsml.org/schemas/1series" version="1.4.1.0">
-<log uid='711f5bef-ba61-4cdb-9eff-fd586b368297' uidWell='42-177-32094-00-00' uidWellbore='42-177-32094-00-00-wb1' xmlns='http://www.witsml.org/schemas/1series'>
-  <nameWell>KOENNING UNIT</nameWell>
-  <nameWellbore>KOENNING UNIT</nameWellbore>
-  <name>421773209400_PL.LAS</name>
-  <serviceCompany/>
-
+<logs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.witsml.org/schemas/131 http://www.witsml.org/schemas/1311/obj_log.xsd" version="1.3.1.1" xmlns="http://www.witsml.org/schemas/131">
+ <log uidWell="@UID_WELL@" uidWellbore="@UID_WELLBORE@" uid="@UID_LOG@">
+  <nameWell>@NAME_WELL@</nameWell>
+  <nameWellbore>@NAME_WELLBORE@</nameWellbore>
+  <name>@NAME_LOG@</name>
   <description>Created by Wellstorm LAS Import</description>
   <indexType>measured depth</indexType>
   <startIndex uom='ft'>4301</startIndex>
   <endIndex uom='ft'>11350</endIndex>
   <indexCurve>DEPTH</indexCurve>
-  <nullValue>-999.990</nullValue>
+  <nullValue>-999.990</nullValue>   
   <logCurveInfo uid='DEPTH'>
     <mnemonic>DEPTH</mnemonic>
     <unit>ft</unit>
@@ -54,9 +52,7 @@
     <maxIndex uom='ft'>11346</maxIndex>
     <curveDescription>DPHI</curveDescription>
   </logCurveInfo>
-  <logData xmlns='http://www.witsml.org/schemas/1series'>
-  <mnemonicList>DEPTH,ILS,NPHI,ILD,GR,DPHI</mnemonicList>
-  <unitList>ft,ohm,v/v,ohm,api,v/v</unitList>
+  <logData>
       <data>4301.0,-999.99,-999.99,-999.99,51.315,-999.99</data>
       <data>4301.5,-999.99,-999.99,-999.99,53.166,-999.99</data>
       <data>4302.0,-999.99,-999.99,2.866,51.128,-999.99</data>
@@ -14157,11 +14153,9 @@
       <data>11349.5,-999.99,-999.99,8.177,-999.99,-999.99</data>
       <data>11350.0,-999.99,-999.99,8.122,-999.99,-999.99</data>
   </logData>
-
   <commonData>
     <dTimCreation>2012-07-14T10:38:23.895000-05:00</dTimCreation>
     <dTimLastChange>2012-07-14T10:38:23.895000-05:00</dTimLastChange>
     <itemState>unknown</itemState>
   </commonData>
-  <objectGrowing>false</objectGrowing>
 </log></logs>

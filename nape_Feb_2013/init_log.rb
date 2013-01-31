@@ -24,7 +24,7 @@ opts =OptionParser.new do |o|
   o.on("-n", "--nameWell  NAMEWELL", "name of the well") do |v|
     $options[:nameWell] = v
   end
-  o.on("-g", "--nameLog NAMELOG", "name of the time log") do |v|
+  o.on("-g", "--nameLog NAMELOG", "name of the log") do |v|
     $options[:nameLog] = v
   end  
   
@@ -50,8 +50,8 @@ def replace_log_object_text(s, uid_well, uid_wellbore, uid_log, name_well, name_
   s["@NAME_WELL@"] = name_well
   s["@UID_WELLBORE@"] = uid_wellbore
   s["@NAME_WELLBORE@"] = name_wellbore    
-  s["@UID_TIME_LOG@"] = uid_log
-  s["@NAME_TIME_LOG@"] = name_log                  
+  s["@UID_LOG@"] = uid_log
+  s["@NAME_LOG@"] = name_log                  
 end
 
 opts.parse!
@@ -129,16 +129,4 @@ post log_head, url_wellbore, $options[:user_name], $options[:password]
 puts 
 puts "It looks like everything succeeded."
 puts "You have an empty log uidWell='#{uid_well}' uidWellbore='#{uid_wellbore}' uid='#{uid_log}' named \"#{name_log}\", in well \"#{name_well}\", wellbore \"#{name_wellbore}\"."
-puts 
-puts "Now you can run the following command to start the simulation:"
-puts
-puts "----------------------------------------------------------------------------------------"
-puts "ruby -I. replay.rb -r #{url_log} -l \"#{$options[:log]}\" -u #{$options[:user_name]} -p #{$options[:password]}"
-puts "----------------------------------------------------------------------------------------"
-puts
-puts "You can stop the simulation with Ctrl-C. You can continue it later, "
-puts "picking up where you left off, by using the command above again."
-puts "Only run this script, start.rb, when you want to make a clean start"
-puts "with a new, empty log."
-
 

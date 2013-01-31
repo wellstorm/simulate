@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <logs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.witsml.org/schemas/131 http://www.witsml.org/schemas/1311/obj_log.xsd" version="1.3.1.1" xmlns="http://www.witsml.org/schemas/131">
-   <log uidWell="@UID_WELL@" uidWellbore="@UID_WELLBORE@" uid="@UID_TIME_LOG@">
+   <log uidWell="@UID_WELL@" uidWellbore="@UID_WELLBORE@" uid="@UID_LOG@">
 	  <nameWell>@NAME_WELL@</nameWell>
 	  <nameWellbore>@NAME_WELLBORE@</nameWellbore>
-	  <name>@NAME_TIME_LOG@</name>
+	  <name>@NAME_LOG@</name>
       <serviceCompany>Schlumberger</serviceCompany>
       <creationDate>2007-08-08T06:19:48Z</creationDate>
       <indexType>date time</indexType>
