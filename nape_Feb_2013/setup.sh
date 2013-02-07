@@ -19,6 +19,8 @@ export SIM_WELL_FILE=./data/well.witsml
 export SIM_WELLBORE_FILE=./data/wellbore.witsml
 export SIM_TIME_LOG_FILE=./data/time-log.witsml
 export SIM_DEPTH_LOG_FILE=./data/depth-log.witsml
+export SIM_TRAJ_FILE=./data/trajectory.witsml
+
 #
 # CREDENTIALS
 #

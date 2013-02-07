@@ -1,0 +1,4 @@
+#!/bin/bash
+ruby -I. step_station_depthlog.rb --url "$SIM_WITSML_STORE_URL" --traj "$SIM_TRAJ_FILE" --log "$SIM_DEPTH_LOG_FILE" --uidWell "$SIM_UID_WELL" --uidLog "$SIM_UID_DEPTH_LOG" -u $SIM_USERNAME -p $SIM_PASSWORD --start_depth `cat last_depth` > last_depth
+cat last_depth
+
